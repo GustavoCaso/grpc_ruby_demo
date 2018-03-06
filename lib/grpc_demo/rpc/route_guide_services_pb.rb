@@ -14,9 +14,9 @@ module Routeguide
       self.unmarshal_class_method = :decode
       self.service_name = 'routeguide.RouteGuide'
 
-      rpc :GetFeature, Point, Feature
-      rpc :ListFeatures, Rectangle, stream(Feature)
-      rpc :RecordRoute, stream(Point), RouteSummary
+      rpc :GetLocation, Coordinate, Location
+      rpc :ListLocations, Area, stream(Location)
+      rpc :RecordRoute, stream(Coordinate), RouteSummary
       rpc :RouteChat, stream(RouteNote), stream(RouteNote)
     end
 
