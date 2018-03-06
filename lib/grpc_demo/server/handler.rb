@@ -1,4 +1,4 @@
-require 'grpc_demo/server/rectangle_enum'
+require 'grpc_demo/server/locations'
 require 'grpc_demo/server/record_route'
 require 'grpc_demo/server/route_chat_enumerator'
 
@@ -9,13 +9,13 @@ module GrpcDemo
         @received_notes = Hash.new { |h, k| h[k] = [] }
       end
 
-      def get_feature(point, _call)
+      def get_location(point, _call)
         name = DB.find(longitude: point.longitude, latitude: point.latitude) || ''
-        Feature.new(location: point, name: name)
+        Location.new(coordinates: point, name: name)
       end
 
-      def list_features(rectangle, _call)
-        RectangleEnum.new(rectangle).each
+      def list_locations(area, _call)
+        Locations.new(area).each
       end
 
       def record_route(call)

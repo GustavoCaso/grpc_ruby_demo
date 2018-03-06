@@ -2,37 +2,38 @@ require 'grpc_demo/server/distance_helper'
 
 module GrpcDemo
   class Server
-    # RecordRoute will loop every Point
+    # RecordRoute will loop every Coordinate
 
     class RecordRoute
       class RouteSummaryExtractor
         include DistanceHelper
 
-        attr_reader :distance, :count, :feature_count, :started, :elapsed_time
+        attr_reader :distance, :locations_count, :started, :elapsed_time
 
         def initialize
-          @distance, @count, @feature_count = 0, 0, 0
+          @distance, @locations_count = 0, 0, 0
           @started, @elapsed_time = 0, 0
         end
 
         def call(call)
           last = nil
-          call.each_remote_read do |point|
-            @count = @count += 1
-            name = DB.find(longitude: point.longitude, latitude: point.latitude) || ''
-            @features = @features += 1 unless name == ''
+          call.each_remote_read do |coordinate|
+            name = DB.find(longitude: coordinate.longitude, latitude: coordinate.latitude) || ''
+            @locations_count = @locations_count += 1 unless name == ''
             if last.nil?
-              last = point
+              last = coordinate
               @started = Time.now.to_i
               next
             end
             @elapsed_time = @elapsed_time = Time.now.to_i - started
-            @distance = @distance += calculate_distance(point, last)
-            last = point
+            @distance = @distance += calculate_distance(coordinate, last)
+            last = coordinate
           end
           self
         end
       end
+
+      private_constant :RouteSummaryExtractor
 
       attr_reader :stub_call, :route_summary_extractor
 
@@ -43,8 +44,7 @@ module GrpcDemo
 
       def call
         route_summary = route_summary_extractor.call(stub_call)
-        RouteSummary.new(point_count: route_summary.count,
-                         feature_count: route_summary.feature_count,
+        RouteSummary.new(locations_count: route_summary.locations_count,
                          distance: route_summary.distance,
                          elapsed_time: route_summary.elapsed_time)
       end
