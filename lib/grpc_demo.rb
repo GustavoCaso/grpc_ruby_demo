@@ -13,12 +13,12 @@ module GrpcDemo
     Server.start
   end
 
-  def self.client_get_feature
-    Client.get_feature
+  def self.client_get_location
+    Client.get_location
   end
 
-  def self.client_list_features
-    Client.list_features
+  def self.client_list_locations
+    Client.list_locations
   end
 
   def self.client_route_chat

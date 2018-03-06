@@ -20,7 +20,7 @@ module GrpcDemo
             json_feature = @features[rand(0..@features.length)]
             next if json_feature.nil?
             location = json_feature['location']
-            pt = Routeguide::Point.new(
+            pt = Routeguide::Coordinate.new(
               Hash[location.each_pair.map { |k, v| [k.to_sym, v] }])
             p "- next point is #{pt.inspect}"
             yield pt

@@ -3,15 +3,15 @@ module GrpcDemo
     class RouteChat
       ROUTE_CHAT_NOTES = [
         Routeguide::RouteNote.new(message: 'doh - a deer',
-                      location: Routeguide::Point.new(latitude: 0, longitude: 0)),
+                      location: Routeguide::Coordinate.new(latitude: 0, longitude: 0)),
         Routeguide::RouteNote.new(message: 'ray - a drop of golden sun',
-                      location: Routeguide::Point.new(latitude: 0, longitude: 1)),
+                      location: Routeguide::Coordinate.new(latitude: 0, longitude: 1)),
         Routeguide::RouteNote.new(message: 'me - the name I call myself',
-                      location: Routeguide::Point.new(latitude: 1, longitude: 0)),
+                      location: Routeguide::Coordinate.new(latitude: 1, longitude: 0)),
         Routeguide::RouteNote.new(message: 'fa - a longer way to run',
-                      location: Routeguide::Point.new(latitude: 1, longitude: 1)),
+                      location: Routeguide::Coordinate.new(latitude: 1, longitude: 1)),
         Routeguide::RouteNote.new(message: 'soh - with needle and a thread',
-                      location: Routeguide::Point.new(latitude: 0, longitude: 1))
+                      location: Routeguide::Coordinate.new(latitude: 0, longitude: 1))
       ]
 
       # SleepingEnumerator yields through items, and sleeps between each one
