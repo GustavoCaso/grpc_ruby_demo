@@ -9,9 +9,9 @@ module GrpcDemo
         @received_notes = Hash.new { |h, k| h[k] = [] }
       end
 
-      def get_location(point, _call)
-        name = DB.find(longitude: point.longitude, latitude: point.latitude) || ''
-        Location.new(coordinates: point, name: name)
+      def get_location(coordinates, _call)
+        name = DB.find(longitude: coordinates.longitude, latitude: coordinates.latitude) || ''
+        Location.new(coordinates: coordinates, name: name)
       end
 
       def list_locations(area, _call)
