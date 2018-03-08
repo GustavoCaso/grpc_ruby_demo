@@ -1,34 +1,55 @@
-# GrpcDemo
+# Grpc Demo
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/grpc_demo`. To experiment with that code, run `bin/console` for an interactive prompt.
+This repository goes together with a [blog post](http://gustavocaso.github.io/2018/03/grpc-tutorial-with-ruby/) to explain how [Grpc](https://grpc.io/) works.
 
-TODO: Delete this and the text above, and describe your gem
+## Motivation
 
-## Installation
+Understand how `Grpc` works and help others learn it as well.
 
-Add this line to your application's Gemfile:
+## How to use it
+
+The best way to use is by downloading the code to your machine and interact with it.
+
+To interact with it you will need to download all the dependencies using `bundler` don't worry there are only two dependencies `grpc` and `grpc-tools` after that you can simply fire a console `bin/console` and start playing with it.
+
+**Starting the server**
+
+Inside the console, you can run `GrpcDemo.start_server` and it will start a `Grpc` server which we would interact with the client.
 
 ```ruby
-gem 'grpc_demo'
+irb(main):002:0> GrpcDemo.start_server
+... running insecurely on 50051
 ```
 
-And then execute:
+**Using the client**
 
-    $ bundle
+On another window terminal start a new console `bin/console` , and we can use the [client](https://github.com/GustavoCaso/grpc_ruby_demo/blob/master/lib/grpc_demo/client.rb) to send messages to the server.
 
-Or install it yourself as:
+Let say we want to get a location from the server we just execute `GrpcDemo.client_get_location` and we should see some output.
 
-    $ gem install grpc_demo
+```ruby
+irb(main):001:0> GrpcDemo.client_get_location
+"GetLocation"
+"----------"
+"- found 'Berkshire Valley Management Area Trail, Jefferson, NJ, USA' at <Routeguide::Coordinate: latitude: 409146138, longitude: -746188906>"
+"- found nothing at <Routeguide::Coordinate: latitude: 0, longitude: 0>"
+# => [<Routeguide::Coordinate: latitude: 409146138, longitude: -746188906>, <Routeguide::Coordinate: latitude: 0, longitude: 0>]
+```
 
-## Usage
+We have for client functions that interact with the server `client_get_location`, `client_list_locations`, `client_record_route`, `client_route_chat` use them and see the output
 
-TODO: Write usage instructions here
+**Recommendation**
 
-## Development
+Look through the code and read the [blog post](http://gustavocaso.github.io/2018/03/grpc-tutorial-with-ruby/) to get a better understanding of how everything is working.
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+If you want to recreate the,  Grpc files run `make`.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Roadmap
+
+- [ ] Allow client command to accept arguments, right now all the data is hardcoded.
+- [ ] Add testing, this way we will be able to revisit part of the code and changed more secure.
+- [ ] Investigate `ErrorHandling`
+- [ ] ...
 
 ## Contributing
 
